@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd external
+mkdir build install
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=../install -D CMAKE_CXX_COMPILER=/tools/Xilinx/Vitis_HLS/2022.2/tps/lnx64/gcc-8.3.0/bin/g++ -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules/ -D WITH_V4L=ON -D BUILD_TESTS=OFF -D BUILD_ZLIB=ON -D BUILD_JPEG=ON -D WITH_JPEG=ON -D WITH_PNG=ON -D BUILD_EXAMPLES=OFF -D INSTALL_C_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=OFF -D WITH_OPENEXR=OFF -D BUILD_OPENEXR=OFF ../opencv
+make -j8
+make install

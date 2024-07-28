@@ -1,0 +1,12 @@
+{
+  "workspaceRoot": "/home/dkr/simula-one-fpga/vitis_workspace",
+  "mapping": {
+    "/home/dkr/simula-one-fpga/hls/src/xf_isp_tb.cpp": "isp-hls",
+    "isp-hls/xf_isp_accel.cpp": "isp-hls",
+    "isp-hls/Untitled.cpp": "isp-hls",
+    "isp-hls/src/xf_isp_tb.cpp": "isp-hls",
+    "/home/dkr/simula-one-fpga/hls/src/xf_isp_accel.cpp": "isp-hls",
+    "isp-hls/xf_isp_tb.cpp": "isp-hls",
+    "isp-hls/src/xf_isp_accel.cpp": "isp-hls"
+  }
+}

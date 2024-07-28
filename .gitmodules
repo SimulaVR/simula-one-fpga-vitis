@@ -1,0 +1,9 @@
+[submodule "isp-hls/Vitis_Libraries"]
+	path = isp-hls/Vitis_Libraries
+	url = https://github.com/Xilinx/Vitis_Libraries
+[submodule "isp-hls/external/opencv"]
+	path = isp-hls/external/opencv
+	url = https://github.com/opencv/opencv
+[submodule "isp-hls/external/opencv_contrib"]
+	path = isp-hls/external/opencv_contrib
+	url = https://github.com/opencv/opencv_contrib

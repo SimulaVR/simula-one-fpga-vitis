@@ -1,0 +1,28 @@
+[
+  {
+    "directory": "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls",
+    "arguments": [
+      "/tools/Xilinx/Vitis_HLS/2024.1/vcxx/libexec/clang++",
+      "-fhls",
+      "-hls-syn-headers-dir=/tools/Xilinx/Vitis_HLS/2024.1/common/technology/autopilot",
+      "",
+      "-IVitis_Libraries/vision/L1/include -Iinclude",
+      "-c",
+      "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls/src/xf_isp_accel.cpp"
+    ],
+    "file": "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls/src/xf_isp_accel.cpp"
+  },
+  {
+    "directory": "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls",
+    "arguments": [
+      "/tools/Xilinx/Vitis_HLS/2024.1/vcxx/libexec/clang++",
+      "-fhls-tb",
+      "-hls-sim-headers-dir=/tools/Xilinx/Vitis_HLS/2024.1/include",
+      "",
+      "-IVitis_Libraries/vision/L1/include -I/external/install/include/opencv4 -Iinclude",
+      "-c",
+      "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls/src/xf_isp_tb.cpp"
+    ],
+    "file": "/home/dkr/simula-one-fpga/vitis_workspace/isp-hls/src/xf_isp_tb.cpp"
+  }
+]

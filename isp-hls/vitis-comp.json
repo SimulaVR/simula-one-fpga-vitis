@@ -1,0 +1,11 @@
+{
+  "name": "isp-hls",
+  "type": "HLS",
+  "configuration": {
+    "componentType": "HLS",
+    "configFiles": [
+      "hls_config.cfg"
+    ],
+    "work_dir": "ISPPipeline_accel"
+  }
+}
