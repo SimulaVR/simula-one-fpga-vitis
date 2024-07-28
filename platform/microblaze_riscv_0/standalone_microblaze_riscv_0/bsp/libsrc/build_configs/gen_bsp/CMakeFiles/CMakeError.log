@@ -1,0 +1,28 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/bin/riscv64-unknown-elf-gcc 
+Build flags: ;-O2;-march=rv32imc_zicsr_zifencei;-mabi=ilp32;-DSDT;;-MMD;-MP;-specs=/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/Xilinx.spec;-I/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/include
+Id flags:  
+
+The output was:
+1
+/tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/x86_64-oesdk-linux/usr/bin/riscv32-xilinx-elf/riscv32-xilinx-elf-ld.real: /tmp/cc6h4xwl.o: can't link soft-float modules with double-float modules
+/tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/x86_64-oesdk-linux/usr/bin/riscv32-xilinx-elf/riscv32-xilinx-elf-ld.real: failed to merge target specific data of file /tmp/cc6h4xwl.o
+collect2.real: error: ld returned 1 exit status
+
+
+The C compiler identification could not be found in "/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/3.24.2/CompilerIdC/CMakeCCompilerId.d"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/bin/riscv64-unknown-elf-g++ 
+Build flags: ;-O2;-march=rv32imc_zicsr_zifencei;-mabi=ilp32;-DSDT;;-MMD;-MP;-specs=/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/Xilinx.spec;-I/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/include
+Id flags:  
+
+The output was:
+1
+/tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/x86_64-oesdk-linux/usr/bin/riscv32-xilinx-elf/riscv32-xilinx-elf-ld.real: /tmp/cc1Vw2U4.o: can't link soft-float modules with double-float modules
+/tools/Xilinx/Vitis/2024.1/gnu/riscv/lin/riscv64-unknown-elf/x86_64-oesdk-linux/usr/bin/riscv32-xilinx-elf/riscv32-xilinx-elf-ld.real: failed to merge target specific data of file /tmp/cc1Vw2U4.o
+collect2.real: error: ld returned 1 exit status
+
+
+The CXX compiler identification could not be found in "/home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/3.24.2/CompilerIdCXX/CMakeCXXCompilerId.d"
+

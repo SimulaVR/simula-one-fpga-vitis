@@ -1,0 +1,15 @@
+{
+  "name": "imx_init",
+  "type": "HOST",
+  "platform": "/home/dkr/simula-one-fpga/vitis_workspace/platform/export/platform/platform.xpfm",
+  "domain": "standalone_microblaze_riscv_0",
+  "cpuInstance": "microblaze_riscv_0",
+  "cpuType": "microblaze_riscv",
+  "os": "standalone",
+  "configuration": {
+    "componentType": "HOST",
+    "hostToolchainConfigurations": []
+  },
+  "domainRealName": "standalone_microblaze_riscv_0",
+  "applicationFlow": "EMBEDDED"
+}

@@ -1,0 +1,32 @@
+/dts-v1/;
+#include "pl.dtsi"
+/ {
+	board = "xem8320-au25p_szg_port_f_szg_pciex4_szg_port_txr4";
+	compatible = "xlnx,xem8320-au25p_szg_port_f_szg_pciex4_szg_port_txr4";
+	device_id = "xcau25p";
+	#address-cells = <1>;
+	#size-cells = <1>;
+	microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr_memory: memory@0 {
+		compatible = "xlnx,lmb-bram-if-cntlr-4.0";
+		xlnx,ip-name = "lmb_bram_if_cntlr";
+		device_type = "memory";
+		memory_type = "memory";
+		reg = <0x00000000 0x8000>;
+	};
+	chosen {
+	};
+	aliases {
+		spi0 = &axi_quad_spi_0;
+	};
+	amba_pl: amba_pl {
+		cpus_microblaze_riscv_0: cpus_microblaze_riscv@0 {
+			address-map = <0x00000000 &microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr_memory 0x00000000 0x8000>, 
+			      <0x00000000 &microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr 0x00000000 0x8000>, 
+			      <0x40000000 &axi_gpio_0 0x40000000 0x10000>, 
+			      <0x41200000 &microblaze_riscv_0_axi_intc 0x41200000 0x10000>, 
+			      <0x44a00000 &axi_quad_spi_0 0x44a00000 0x10000>;
+			#ranges-address-cells = <0x1>;
+			#ranges-size-cells = <0x1>;
+		};
+	};
+};
