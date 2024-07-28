@@ -1,7 +1,7 @@
 sdt: hw_artifacts/microblaze_riscv_0_baremetal.dts
 family: null
 path: /home/dkr/simula-one-fpga/vitis_workspace/platform/microblaze_riscv_0/standalone_microblaze_riscv_0/bsp
-config: default
+config: None
 os: standalone
 os_info:
   standalone:
@@ -168,14 +168,29 @@ drv_info:
     driver: gpio
     ip_name: axi_gpio
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/gpio_v4_11
+    examples:
+      xgpio_example.c: []
+      xgpio_low_level_example.c: []
+      xgpio_tapp_example.c: []
   axi_quad_spi_0:
     driver: spi
     ip_name: axi_quad_spi
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/spi_v4_12
+    examples:
+      xspi_polled_example.c: []
+      xspi_slave_polled_example.c: []
+      xspi_low_level_example.c: []
+      xspi_winbond_flash_xip_example.c: []
+      xspi_selftest_example.c: []
+      xspi_stm_flash_example.c: []
   microblaze_riscv_0_axi_intc:
     driver: intc
     ip_name: axi_intc
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/intc_v3_18
+    examples:
+      xintc_example.c: []
+      xintc_low_level_example.c: []
+      xintc_tapp_example.c: []
 lib_info:
   xiltimer:
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/lib/sw_services/xiltimer_v2_0

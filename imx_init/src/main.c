@@ -46,8 +46,7 @@ const u8 CAMERA_1_PRESENT = 0;
 const u8 CAMERA_2_PRESENT = 1;
 
 u8 cameraEnable = 1;
-u8 camera1PowerGood = 0;
-u8 camera2PowerGood = 0;
+u8 cameraPowerGood[2]  = {0, 0};
 
 typedef enum {
     SEQ_STATE_INIT,
@@ -356,9 +355,9 @@ int main () {
                 cameraTimeEnd = cameraTimeStart + ITERS_PER_MSEC * PGOOD_TIMEOUT;
                 break;
             case SEQ_STATE_EN_WAIT_POWERON:
-                camera1PowerGood = (val & CAMERA_1_PGOOD_PIN) && 1;
-                camera2PowerGood = (val & CAMERA_2_PGOOD_PIN) && 1;
-                if ((!CAMERA_1_PRESENT || camera1PowerGood) && (!CAMERA_2_PRESENT || camera2PowerGood)) {
+                cameraPowerGood[0] = (val & CAMERA_1_PGOOD_PIN) && 1;
+                cameraPowerGood[1] = (val & CAMERA_2_PGOOD_PIN) && 1;
+                if ((!CAMERA_1_PRESENT || cameraPowerGood[0]) && (!CAMERA_2_PRESENT || cameraPowerGood[1])) {
                     state = SEQ_STATE_EN_WAIT_XCLR;
                     cameraTimeStart = rdtime();
                     cameraTimeEnd = cameraTimeStart + ITERS_PER_USEC * XCLR_WAIT;
@@ -399,19 +398,24 @@ int main () {
                 }
                 break;
             case SEQ_STATE_EN_WAIT_STANDBY:
-                XSpi_SetSlaveSelect(&spi, 0b100);
-                programInitialEC10bit();
-                writeRegister(2,0,0);
-                usleep(1138*1000);
-                writeRegister(2, 0x10, 0);
-                XSpi_SetSlaveSelect(&spi, 0);
+                for(int cam = 0; cam < 1; cam++) {
+                    if (!cameraPowerGood[cam]) {
+                        continue;
+                    }
+                    XSpi_SetSlaveSelect(&spi, 0b10 << cam);
+                    programInitialEC10bit();
+                    writeRegister(2,0,0);
+                    usleep(1138*1000);
+                    writeRegister(2, 0x10, 0);
+                    XSpi_SetSlaveSelect(&spi, 0);
+                }
                 state = SEQ_STATE_READY;
                 break;
             case SEQ_STATE_READY:
-                camera1PowerGood = (val & CAMERA_1_PGOOD_PIN) && 1;
-                camera2PowerGood = (val & CAMERA_2_PGOOD_PIN) && 1;
-                if (!cameraEnable || (CAMERA_1_PRESENT && !camera1PowerGood) 
-                    || (CAMERA_2_PRESENT && !camera2PowerGood)) {
+                cameraPowerGood[0] = (val & CAMERA_1_PGOOD_PIN) && 1;
+                cameraPowerGood[1] = (val & CAMERA_2_PGOOD_PIN) && 1;
+                if (!cameraEnable || (CAMERA_1_PRESENT && !cameraPowerGood[0]) 
+                    || (CAMERA_2_PRESENT && !cameraPowerGood[1])) {
                     state = SEQ_STATE_DISABLE;
                 }
                 break;
