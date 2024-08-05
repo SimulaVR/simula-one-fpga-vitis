@@ -25,6 +25,7 @@ set(USER_UNDEFINED_SYMBOLS
 # Example 3: Adding ${CMAKE_SOURCE_DIR}/data/include to add data/include from this project.
 
 set(USER_INCLUDE_DIRECTORIES
+../include
 )
 
 # -----------------------------------------
@@ -120,7 +121,6 @@ set(USER_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/lscript.ld")
 # Add linker options to be passed, they will be added as extra linker options
 # Example : adding -s will pass -s to the linker.
 set(USER_LINK_OTHER_FLAGS
-
 )
 
 # -----------------------------------------

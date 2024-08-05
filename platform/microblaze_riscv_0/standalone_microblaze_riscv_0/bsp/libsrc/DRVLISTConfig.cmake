@@ -1,1 +1,1 @@
-set(DRIVER_LIST common;gpio;intc;spi)
+set(DRIVER_LIST axivdma;common;gpio;intc;spi)

@@ -1,9 +1,18 @@
+M_AVALON_0:
+- M_AVALON_0
+- None
+M_AVALON_1:
+- M_AVALON_1
+- None
 axi_gpio_0:
 - axi_gpio
 - gpio
 axi_quad_spi_0:
 - axi_quad_spi
 - spi
+axi_vdma_0:
+- axi_vdma
+- axivdma
 microblaze_riscv_0_axi_intc:
 - axi_intc
 - intc

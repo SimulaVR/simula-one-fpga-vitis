@@ -6,11 +6,12 @@
         device_id = "xcau25p";
         #address-cells = <0x1>;
         #size-cells = <0x1>;
+        slrcount = <0x1>;
 
         clock: clocks {
                 #address-cells = <0x1>;
                 #size-cells = <0x0>;
-                phandle = <0x8>;
+                phandle = <0xc>;
 
                 clk_cpu_0: clk_cpu@0 {
                         compatible = "fixed-clock";
@@ -18,7 +19,7 @@
                         clock-frequency = <0x5f5e100>;
                         clock-output-names = "clk_cpu";
                         #clock-cells = <0x0>;
-                        phandle = <0x9>;
+                        phandle = <0xd>;
                 };
 
                 clk_bus_0: clk_bus_0@1 {
@@ -27,7 +28,16 @@
                         clock-frequency = <0x5f5e100>;
                         clock-output-names = "clk_bus_0";
                         #clock-cells = <0x0>;
-                        phandle = <0x7>;
+                        phandle = <0xa>;
+                };
+
+                clk_bus_1: clk_bus_1@2 {
+                        compatible = "fixed-clock";
+                        reg = <0x2>;
+                        clock-frequency = <0x11e1a300>;
+                        clock-output-names = "clk_bus_1";
+                        #clock-cells = <0x0>;
+                        phandle = <0xb>;
                 };
         };
 
@@ -36,7 +46,7 @@
                 compatible = "simple-bus";
                 #address-cells = <0x1>;
                 #size-cells = <0x1>;
-                phandle = <0x6>;
+                phandle = <0x9>;
 
                 cpus_microblaze_riscv_0: cpus_microblaze_riscv@0 {
                         #cpu-mask-cells = <0x1>;
@@ -47,10 +57,13 @@
                          <0x0 &microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr 0x0 0x8000>,
                          <0x40000000 &axi_gpio_0 0x40000000 0x10000>,
                          <0x41200000 &microblaze_riscv_0_axi_intc 0x41200000 0x10000>,
-                         <0x44a00000 &axi_quad_spi_0 0x44a00000 0x10000>;
+                         <0x44a00000 &axi_quad_spi_0 0x44a00000 0x10000>,
+                         <0x44a10000 &axi_vdma_0 0x44a10000 0x10000>,
+                         <0x44a20000 &M_AVALON_0 0x44a20000 0x10000>,
+                         <0x44a30000 &M_AVALON_1 0x44a30000 0x10000>;
                         #ranges-address-cells = <0x1>;
                         #ranges-size-cells = <0x1>;
-                        phandle = <0xa>;
+                        phandle = <0xe>;
 
                         microblaze_riscv_0: cpu@0 {
                                 model = "microblaze_riscv,1.0";
@@ -110,7 +123,7 @@
                                 xlnx,branch-target-cache-size = <0x0>;
                                 xlnx,dcache-use-writeback = <0x0>;
                                 xlnx,use-bitman-s = <0x0>;
-                                bus-handle = <0x6>;
+                                bus-handle = <0x9>;
                                 xlnx,icache-line-len = <0x4>;
                                 xlnx,base-vectors = <0x0 0x0>;
                                 xlnx,ecc-use-ce-exception = <0x0>;
@@ -172,14 +185,14 @@
                                 xlnx,imprecise-exceptions = <0x0>;
                                 xlnx,icache-data-width = <0x0>;
                                 xlnx,debug-counter-width = <0x40>;
-                                phandle = <0xb>;
+                                phandle = <0xf>;
                         };
                 };
 
                 microblaze_riscv_0_axi_intc: axi_intc@41200000 {
                         #interrupt-cells = <0x2>;
                         xlnx,sense-of-irq-edge-type = "Rising";
-                        xlnx,kind-of-intr = <0x3>;
+                        xlnx,kind-of-intr = <0x2>;
                         xlnx,kind-of-edge = <0xffffffff>;
                         xlnx,irq-is-level = <0x1>;
                         xlnx,has-ivr = <0x1>;
@@ -214,18 +227,21 @@
                         xlnx,has-fast = <0x1>;
                         xlnx,ivar-rst-val = <0x10>;
                         interrupt-controller;
-                        xlnx,async-intr = <0xffffffff>;
+                        xlnx,async-intr = <0xfffffffc>;
                         xlnx,name = "microblaze_riscv_0_axi_intc";
                         phandle = <0x4>;
                 };
 
                 axi_gpio_0: axi_gpio@40000000 {
+                        #interrupt-cells = <0x2>;
+                        interrupts = <0x0 0x2>;
                         xlnx,gpio-board-interface = "Custom";
                         compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
                         xlnx,all-outputs = <0x0>;
                         #gpio-cells = <0x2>;
-                        xlnx,gpio-width = <0xf>;
+                        xlnx,gpio-width = <0x13>;
                         clock-frequency = <0x5f5e100>;
+                        interrupt-parent = <&microblaze_riscv_0_axi_intc>;
                         xlnx,rable = <0x0>;
                         xlnx,dout-default = <0x0>;
                         xlnx,is-dual = <0x0>;
@@ -236,20 +252,23 @@
                         clocks = <&clk_bus_0>;
                         xlnx,all-outputs-2 = <0x0>;
                         gpio-controller;
-                        xlnx,interrupt-present = <0x0>;
+                        xlnx,interrupt-present = <0x1>;
                         xlnx,gpio2-board-interface = "Custom";
                         xlnx,edk-iptype = "PERIPHERAL";
                         xlnx,dout-default-2 = <0x0>;
                         xlnx,gpio2-width = <0x20>;
                         status = "okay";
                         clock-names = "s_axi_aclk";
-                        xlnx,tri-default = <0x6594>;
+                        interrupt-controller;
+                        interrupt-names = "ip2intc_irpt";
+                        xlnx,tri-default = <0x7e594>;
                         xlnx,name = "axi_gpio_0";
                         xlnx,all-inputs = <0x0>;
                         phandle = <0x3>;
                 };
 
                 axi_quad_spi_0: axi_quad_spi@44a00000 {
+                        interrupts = <0x1 0x0>;
                         xlnx,select-xpm = <0x0>;
                         xlnx,num-ss-bits = <0x3>;
                         compatible = "xlnx,axi-quad-spi-3.2", "xlnx,xps-spi-2.00.a";
@@ -264,6 +283,7 @@
                         xlnx,sck-ratio = <0x10>;
                         xlnx,s-axi4-id-width = <0x4>;
                         fifo-size = <0x10>;
+                        interrupt-parent = <&microblaze_riscv_0_axi_intc>;
                         xlnx,rable = <0x0>;
                         xlnx,multiples16 = <0x1>;
                         xlnx,master-mode = <0x1>;
@@ -290,11 +310,157 @@
                         xlnx,uc-family = <0x1>;
                         xlnx,spi-mem-addr-bits = <0x18>;
                         xlnx,axi-interface = <0x0>;
+                        interrupt-names = "ip2intc_irpt";
                         xlnx,Axi4-address = <0x0>;
                         xlnx,sub-family = "kintexuplus";
                         xlnx,name = "axi_quad_spi_0";
                         xlnx,fifo-included = <0x1>;
                         phandle = <0x5>;
+                };
+
+                axi_vdma_0: axi_vdma@44a10000 {
+                        xlnx,enable-debug-info-9 = <0x0>;
+                        xlnx,c-enable-mm2s-param-updt = <0x0>;
+                        xlnx,c-enable-s2mm-delay-counter = <0x1>;
+                        xlnx,dlytmr-resolution = <0x7d>;
+                        xlnx,rable = <0x0>;
+                        xlnx,ip-name = "axi_vdma";
+                        xlnx,s2mm-genlock-num-masters = <0x1>;
+                        reg = <0x44a10000 0x10000>;
+                        xlnx,use-mm2s-fsync = <0x0>;
+                        xlnx,s2mm-linebuffer-thresh = <0x4>;
+                        xlnx,c-use-s2mm-fsync = <0x2>;
+                        xlnx,c-enable-mm2s-buf-empty = <0x0>;
+                        xlnx,c-enable-s2mm-frm-counter = <0x1>;
+                        xlnx,c-enable-mm2s-delay-counter = <0x1>;
+                        xlnx,c-dlytmr-resolution = <0x7d>;
+                        xlnx,c-enable-s2mm-buf-full = <0x0>;
+                        xlnx,dynamic-resolution = <0x1>;
+                        xlnx,s2mm-sof-enable = <0x1>;
+                        xlnx,mm2s-genlock-num-masters = <0x1>;
+                        xlnx,c-s2mm-genlock-num-masters = <0x1>;
+                        xlnx,c-enable-s2mm-fsync-out = <0x0>;
+                        xlnx,mm2s-linebuffer-thresh = <0x4>;
+                        xlnx,c-use-mm2s-fsync = <0x0>;
+                        xlnx,c-s2mm-linebuffer-thresh = <0x4>;
+                        xlnx,c-enable-mm2s-frm-counter = <0x1>;
+                        compatible = "xlnx,axi-vdma-6.3", "xlnx,axi-vdma-1.00.a";
+                        xlnx,c-m-axis-mm2s-tdata-width = <0x20>;
+                        clock-frequency = <0x5f5e100 0x11e1a300 0x11e1a300 0x11e1a300 0x11e1a300>;
+                        xlnx,c-enable-all = <0x0>;
+                        xlnx,s2mm-max-burst-length = <0x8>;
+                        xlnx,c-dynamic-resolution = <0x1>;
+                        xlnx,c-enable-s2mm-rst-out = <0x0>;
+                        xlnx,mm2s-sof-enable = <0x1>;
+                        xlnx,include-s2mm-dre = <0x0>;
+                        xlnx,c-s2mm-sof-enable = <0x1>;
+                        xlnx,c-enable-mm2s-fsync-out = <0x0>;
+                        xlnx,c-mm2s-genlock-num-masters = <0x1>;
+                        xlnx,c-mm2s-linebuffer-thresh = <0x4>;
+                        xlnx,c-enable-tstvec = <0x0>;
+                        xlnx,mm2s-max-burst-length = <0x8>;
+                        xlnx,c-s2mm-max-burst-length = <0x8>;
+                        status = "okay";
+                        xlnx,c-enable-mm2s-rst-out = <0x0>;
+                        xlnx,include-mm2s-dre = <0x0>;
+                        xlnx,c-include-s2mm-dre = <0x0>;
+                        xlnx,c-mm2s-sof-enable = <0x1>;
+                        xlnx,name = "axi_vdma_0";
+                        xlnx,c-enable-s2mm-frmstr-reg = <0x0>;
+                        xlnx,c-include-sg = <0x0>;
+                        xlnx,flush-on-fsync = <0x1>;
+                        xlnx,c-m-axi-s2mm-data-width = <0x80>;
+                        xlnx,c-enable-s2mm-sts-reg = <0x1>;
+                        xlnx,include-s2mm-sf = <0x1>;
+                        xlnx,c-mm2s-max-burst-length = <0x8>;
+                        xlnx,s2mm-linebuffer-depth = <0x200>;
+                        xlnx,include-s2mm = <0x1>;
+                        xlnx,c-include-mm2s-dre = <0x0>;
+                        clocks = <&clk_bus_0>,
+                         <&clk_bus_1>,
+                         <&clk_bus_1>,
+                         <&clk_bus_1>,
+                         <&clk_bus_1>;
+                        xlnx,c-enable-mm2s-frmstr-reg = <0x0>;
+                        xlnx,enable-debug-info-10 = <0x0>;
+                        xlnx,addrwidth = <0x20>;
+                        xlnx,enable-debug-info-11 = <0x0>;
+                        xlnx,enable-debug-info-12 = <0x1>;
+                        xlnx,edk-iptype = "PERIPHERAL";
+                        xlnx,c-flush-on-fsync = <0x1>;
+                        xlnx,c-m-axi-mm2s-data-width = <0x40>;
+                        xlnx,use-fsync = <0x1>;
+                        xlnx,s2mm-genlock-repeat-en = <0x1>;
+                        xlnx,enable-vert-flip = <0x0>;
+                        xlnx,enable-debug-info-13 = <0x0>;
+                        xlnx,include-mm2s-sf = <0x0>;
+                        xlnx,include-internal-genlock = <0x1>;
+                        xlnx,enable-debug-info-14 = <0x1>;
+                        xlnx,c-include-s2mm-sf = <0x1>;
+                        clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk", "m_axi_s2mm_aclk";
+                        xlnx,enable-debug-info-15 = <0x1>;
+                        xlnx,mm2s-linebuffer-depth = <0x200>;
+                        xlnx,include-mm2s = <0x1>;
+                        xlnx,c-single-interface = <0x0>;
+                        xlnx,c-s2mm-linebuffer-depth = <0x200>;
+                        xlnx,c-addr-width = <0x20>;
+                        xlnx,c-include-s2mm = <0x1>;
+                        xlnx,s2mm-genlock-mode = <0x2>;
+                        xlnx,c-s-axis-s2mm-tdata-width = <0x80>;
+                        xlnx,flush-fsync = <0x1>;
+                        xlnx,select-xpm = <0x0>;
+                        xlnx,s2mm-data-width = <0x80>;
+                        xlnx,num-fstores = <0x3>;
+                        xlnx,enable-vidparam-reads = <0x1>;
+                        xlnx,mm2s-genlock-repeat-en = <0x0>;
+                        xlnx,c-use-fsync = <0x1>;
+                        xlnx,c-s2mm-genlock-repeat-en = <0x1>;
+                        xlnx,c-enable-vert-flip = <0x0>;
+                        xlnx,prmry-is-aclk-async = <0x1>;
+                        xlnx,c-include-internal-genlock = <0x1>;
+                        xlnx,c-include-mm2s-sf = <0x0>;
+                        xlnx,s2mm-tdata-width = <0x80>;
+                        xlnx,enable-vidprmtr-reads = <0x1>;
+                        xlnx,c-include-mm2s = <0x1>;
+                        xlnx,c-mm2s-linebuffer-depth = <0x200>;
+                        xlnx,mm2s-genlock-mode = <0x3>;
+                        xlnx,enable-debug-info-0 = <0x0>;
+                        xlnx,enable-debug-all = <0x0>;
+                        xlnx,c-s2mm-genlock-mode = <0x2>;
+                        xlnx,enable-debug-info-1 = <0x0>;
+                        xlnx,mm2s-data-width = <0x40>;
+                        xlnx,enable-debug-info-2 = <0x0>;
+                        xlnx,c-enable-s2mm-param-updt = <0x0>;
+                        xlnx,c-num-fstores = <0x3>;
+                        xlnx,enable-debug-info-3 = <0x0>;
+                        xlnx,enable-debug-info-4 = <0x0>;
+                        xlnx,c-mm2s-genlock-repeat-en = <0x0>;
+                        xlnx,enable-debug-info-5 = <0x0>;
+                        xlnx,c-prmry-is-aclk-async = <0x1>;
+                        xlnx,mm2s-tdata-width = <0x20>;
+                        xlnx,enable-debug-info-6 = <0x1>;
+                        xlnx,enable-debug-info-7 = <0x1>;
+                        xlnx,c-enable-vidprmtr-reads = <0x1>;
+                        xlnx,use-s2mm-fsync = <0x2>;
+                        xlnx,enable-debug-info-8 = <0x0>;
+                        xlnx,c-mm2s-genlock-mode = <0x3>;
+                        phandle = <0x6>;
+
+                        dma_channel_44a10000: dma-channel@44a10000 {
+                                xlnx,datawidth = <0x20>;
+                                xlnx,device-id = <0x0>;
+                                compatible = "xlnx,axi-vdma-mm2s-channel";
+                                xlnx,genlock-mode;
+                                phandle = <0x10>;
+                        };
+
+                        dma_channel_44a10030: dma-channel@44a10030 {
+                                xlnx,datawidth = <0x80>;
+                                xlnx,device-id = <0x0>;
+                                compatible = "xlnx,axi-vdma-s2mm-channel";
+                                xlnx,genlock-mode;
+                                phandle = <0x11>;
+                        };
                 };
 
                 microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr: lmb_bram_if_cntlr@0 {
@@ -366,8 +532,31 @@
                         xlnx,s-axi-ctrl-data-width = <0x20>;
                         xlnx,bram-awidth = <0x20>;
                         xlnx,lmb-awidth = <0x20>;
-                        phandle = <0xc>;
+                        phandle = <0x12>;
                 };
+
+                M_AVALON_0: M_AVALON_0@44a20000 {
+                        status = "okay";
+                        compatible = "M_AVALON_0";
+                        xlnx,ip-name = "M_AVALON_0";
+                        reg = <0x44a20000 0x10000>;
+                        xlnx,name = "M_AVALON_0";
+                        phandle = <0x7>;
+                };
+
+                M_AVALON_1: M_AVALON_1@44a30000 {
+                        status = "okay";
+                        compatible = "M_AVALON_1";
+                        xlnx,ip-name = "M_AVALON_1";
+                        reg = <0x44a30000 0x10000>;
+                        xlnx,name = "M_AVALON_1";
+                        phandle = <0x8>;
+                };
+        };
+
+        ddr4_0_memory: memory@80000000 {
+                compatible = "xlnx,ddr4-2.2";
+                phandle = <0x13>;
         };
 
         microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr_memory: memory@0 {
@@ -390,14 +579,21 @@
                 clock = "/clocks";
                 clk_cpu_0 = "/clocks/clk_cpu@0";
                 clk_bus_0 = "/clocks/clk_bus_0@1";
+                clk_bus_1 = "/clocks/clk_bus_1@2";
                 amba_pl = "/amba_pl";
                 cpus_microblaze_riscv_0 = "/amba_pl/cpus_microblaze_riscv@0";
                 microblaze_riscv_0 = "/amba_pl/cpus_microblaze_riscv@0/cpu@0";
                 microblaze_riscv_0_axi_intc = "/amba_pl/axi_intc@41200000";
                 axi_gpio_0 = "/amba_pl/axi_gpio@40000000";
                 axi_quad_spi_0 = "/amba_pl/axi_quad_spi@44a00000";
+                axi_vdma_0 = "/amba_pl/axi_vdma@44a10000";
+                dma_channel_44a10000 = "/amba_pl/axi_vdma@44a10000/dma-channel@44a10000";
+                dma_channel_44a10030 = "/amba_pl/axi_vdma@44a10000/dma-channel@44a10030";
                 microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr = "/amba_pl/lmb_bram_if_cntlr@0";
                 microblaze_riscv_0_local_memory_ilmb_bram_if_cntlr = "/amba_pl/lmb_bram_if_cntlr@1";
+                M_AVALON_0 = "/amba_pl/M_AVALON_0@44a20000";
+                M_AVALON_1 = "/amba_pl/M_AVALON_1@44a30000";
+                ddr4_0_memory = "/memory@80000000";
                 microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr_memory = "/memory@0";
         };
 };

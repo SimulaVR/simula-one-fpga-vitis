@@ -6,6 +6,10 @@
 	device_id = "xcau25p";
 	#address-cells = <1>;
 	#size-cells = <1>;
+	slrcount = <1>;
+	ddr4_0_memory: memory@80000000 {
+		compatible = "xlnx,ddr4-2.2";
+	};
 	microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr_memory: memory@0 {
 		compatible = "xlnx,lmb-bram-if-cntlr-4.0";
 		xlnx,ip-name = "lmb_bram_if_cntlr";
@@ -24,7 +28,10 @@
 			      <0x00000000 &microblaze_riscv_0_local_memory_dlmb_bram_if_cntlr 0x00000000 0x8000>, 
 			      <0x40000000 &axi_gpio_0 0x40000000 0x10000>, 
 			      <0x41200000 &microblaze_riscv_0_axi_intc 0x41200000 0x10000>, 
-			      <0x44a00000 &axi_quad_spi_0 0x44a00000 0x10000>;
+			      <0x44a00000 &axi_quad_spi_0 0x44a00000 0x10000>, 
+			      <0x44a10000 &axi_vdma_0 0x44a10000 0x10000>, 
+			      <0x44a20000 &M_AVALON_0 0x44a20000 0x10000>, 
+			      <0x44a30000 &M_AVALON_1 0x44a30000 0x10000>;
 			#ranges-address-cells = <0x1>;
 			#ranges-size-cells = <0x1>;
 		};

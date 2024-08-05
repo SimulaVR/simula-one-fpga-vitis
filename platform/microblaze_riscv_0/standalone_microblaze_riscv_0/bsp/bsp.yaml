@@ -164,33 +164,24 @@ include_folder: include
 lib_folder: lib
 libsrc_folder: libsrc
 drv_info:
+  M_AVALON_0: None
+  M_AVALON_1: None
   axi_gpio_0:
     driver: gpio
     ip_name: axi_gpio
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/gpio_v4_11
-    examples:
-      xgpio_example.c: []
-      xgpio_low_level_example.c: []
-      xgpio_tapp_example.c: []
   axi_quad_spi_0:
     driver: spi
     ip_name: axi_quad_spi
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/spi_v4_12
-    examples:
-      xspi_polled_example.c: []
-      xspi_slave_polled_example.c: []
-      xspi_low_level_example.c: []
-      xspi_winbond_flash_xip_example.c: []
-      xspi_selftest_example.c: []
-      xspi_stm_flash_example.c: []
+  axi_vdma_0:
+    driver: axivdma
+    ip_name: axi_vdma
+    path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/axivdma_v6_15
   microblaze_riscv_0_axi_intc:
     driver: intc
     ip_name: axi_intc
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/XilinxProcessorIPLib/drivers/intc_v3_18
-    examples:
-      xintc_example.c: []
-      xintc_low_level_example.c: []
-      xintc_tapp_example.c: []
 lib_info:
   xiltimer:
     path: /tools/Xilinx/Vitis/2024.1/data/embeddedsw/lib/sw_services/xiltimer_v2_0
