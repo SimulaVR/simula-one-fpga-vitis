@@ -14,7 +14,9 @@
         "-I/home/dkr/simula-one-fpga/vitis_workspace/lossless_compression/../isp-hls/Vitis_Libraries/data_compression/L1/include/hw",
         "-I/home/dkr/simula-one-fpga/vitis_workspace/lossless_compression/../isp-hls/Vitis_Libraries/data_compression/L2/include",
         "-I/home/dkr/simula-one-fpga/vitis_workspace/lossless_compression/../isp-hls/Vitis_Libraries/Isecurity/L1/include",
-        "-I/home/dkr/simula-one-fpga/vitis_workspace/lossless_compression/../isp-hls/Vitis_Libraries/security/L1/include"
+        "-I/home/dkr/simula-one-fpga/vitis_workspace/lossless_compression/../isp-hls/Vitis_Libraries/security/L1/include",
+        "-I/home/dkr/simula-one-fpga/vitis_workspace/optical_flow_test/../isp-hls/Vitis_Libraries/vision/L1/include",
+        "-I/home/dkr/simula-one-fpga/vitis_workspace/optical_flow_test/include"
     ],
     "git.ignoreLimitWarning": true
 }

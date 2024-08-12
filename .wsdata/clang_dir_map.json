@@ -4,6 +4,7 @@
     "lossless_compression/lz4_compress_stream.cpp": "lossless_compression",
     "isp-hls/src/xf_isp_tb.cpp": "isp-hls",
     "lossless_compression/gzip_compress_multicore_stream.cpp": "lossless_compression",
+    "optical_flow_test/xf_pyr_dense_optical_flow_accel.cpp": "optical_flow_test",
     "isp-hls/src/xf_isp_accel.cpp": "isp-hls",
     "lossless_compression/snappy_compress_stream.cpp": "lossless_compression"
   }
